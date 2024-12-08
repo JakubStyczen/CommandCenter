@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            padding-top: 56px;
+        }
+        .navbar{
+            background-color: #343a40;
+        }
+        .navbar-brand, .nav-link{
+            color: #fff !important;
+        }
+        .container{
+            margin-top: 20px;
+        }
+        .table th, .table td{
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text-center">Products</h1>
+    <table class="table table-bordered table-striped ">
+        <thead class="thead-dark">
+            <tr>
+                <th>Product ID</th>
+                <th>Name</th>
+                <th>SKU</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Supplier</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.product_id }} </td>
+                <td>{{ product.name }} </td>
+                <td>{{ product.sku }} </td>
+                <td>{{ product.price }} </td>
+                <td>{{ product.quantity }} </td>
+                <td>{{ product.supplier }} </td>
+                <td> 
+                    kox
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
