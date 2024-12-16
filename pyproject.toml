@@ -7,13 +7,15 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.13"
-django = "*"
 django-crispy-forms = "*"
 crispy-bootstrap5 = "*"
 djongo = "1.3.6"
 pytz = "^2024.2"
 pymongo = "3.12.3"
 pre-commit = "^4.0.1"
+w1thermsensor = "^2.3.0"
+spidev = "^3.6"
+django-clearcache = "^1.2.1"
 
 
 [build-system]

@@ -18,5 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('TestApp.urls')),
+    path('', include('mainApp.urls', namespace='main')),
+    path('pigeon_interrupts/', include('pigeonInterrupts.urls', namespace='pigeon_interrupts')),
+    path('test/', include('TestApp.urls', namespace='test')),
 ]

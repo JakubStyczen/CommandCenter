@@ -1,0 +1,35 @@
+<!-- Extend the base layout from the pigeonInterrupts/layout.html -->
+{% extends "pigeonInterrupts/layout.html" %}
+
+{% block title %} Pigeon deterrent logs {% endblock %}
+
+{% block subcontent %}
+    <h1 class="text-center">Interrupt logs</h1>
+    <form  method="GET" class="text-center" action="{% url 'pigeonInterrupts:pigeon_interrupt_list' %}">
+        <label for="quantity">Logs amount :</label>
+        <input type="number" id="quantity" name="quantity" min="0" max="30" placeholder="Pass number of logs">
+        <button type="submit" class="btn">Apply</button>
+      </form>   
+    <table class="table table-bordered table-striped ">
+        <thead class="thead-dark">
+            <tr>
+                <th>Time</th>
+                <th>PIRSensor</th>
+                <th>CameraSensor</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for interrupt_record in pigeons_interrupts %}
+            <tr>
+                <td>{{ interrupt_record.Time }} </td>
+                <td>{{ interrupt_record.PIRSensor }} </td>
+                <td>{{ interrupt_record.CameraSensor }} </td>
+                <td>
+                    <a href="{% url 'pigeonInterrupts:pigeon_interrupt_delete' interrupt_record.id %}" class="btn btn-danger" >Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

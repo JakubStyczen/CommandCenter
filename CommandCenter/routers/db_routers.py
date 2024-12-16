@@ -4,7 +4,7 @@ class AuthRouter:
     auth and contenttypes applications.
     """
 
-    route_app_labels = {"admin", "auth", "contenttypes", "sessions", "messages", "staticfiles", "TestApp"}
+    route_app_labels = {"admin", "auth", "contenttypes", "sessions", "messages", "staticfiles", "mainApp", "TestApp"}
 
     def db_for_read(self, model, **hints):
         """
@@ -49,7 +49,7 @@ class PigeonDeterrentRouter:
     pigeonDeterrent applications.
     """
 
-    route_app_labels = {"pigeonDeterrent"}
+    route_app_labels = {"pigeonInterrupts"}
 
     def db_for_read(self, model, **hints):
         if model._meta.app_label in self.route_app_labels:
