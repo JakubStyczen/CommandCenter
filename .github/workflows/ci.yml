@@ -34,22 +34,22 @@ jobs:
         run: poetry run coverage run manage.py test --settings=CommandCenter.test_settings
 
       - name: Test coverage report view and generate html test coverage report
-        working-directory: ./CommandCenter
+        working-directory:
         run: | 
-          poetry run coverage report --fail-under=70
-          poetry run coverage html
-          poetry run coverage xml
+          poetry run coverage report --fail-under=70 --data-file=./CommandCenter/.coverage
+          poetry run coverage html --data-file=./CommandCenter/.coverage
+          poetry run coverage xml --data-file=./CommandCenter/.coverage
 
       - name: Upload test coverage report summary
         uses: actions/upload-artifact@v4
         with:
           name: test-coverage
-          path: ./CommandCenter/htmlcov/
+          path: ./htmlcov/
 
       - name: Get Cover 
         uses: orgoro/coverage@v3.2
         with:
-          coverageFile: ./CommandCenter/coverage.xml
+          coverageFile: ./coverage.xml
           token: ${{ secrets.GITHUB_TOKEN }}
 
 
