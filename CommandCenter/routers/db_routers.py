@@ -4,7 +4,16 @@ class AuthRouter:
     auth and contenttypes applications.
     """
 
-    route_app_labels = {"admin", "auth", "contenttypes", "sessions", "messages", "staticfiles", "mainApp", "TestApp"}
+    route_app_labels = {
+        "admin",
+        "auth",
+        "contenttypes",
+        "sessions",
+        "messages",
+        "staticfiles",
+        "mainApp",
+        "TestApp",
+    }
 
     def db_for_read(self, model, **hints):
         """
@@ -42,6 +51,7 @@ class AuthRouter:
         if app_label in self.route_app_labels:
             return db == "auth_db"
         return None
+
 
 class PigeonDeterrentRouter:
     """

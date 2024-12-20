@@ -17,6 +17,7 @@ w1thermsensor = "^2.3.0"
 spidev = "^3.6"
 django-clearcache = "^1.2.1"
 coverage = {extras = ["toml"], version = "^7.6.9"}
+black = "^24.10.0"
 
 
 [build-system]
