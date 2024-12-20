@@ -36,8 +36,9 @@ jobs:
       - name: Test coverage report view and generate html test coverage report
         working-directory: ./CommandCenter
         run: | 
-          poetry run coverage report
+          poetry run coverage report --fail-under=70 --data-file=./CommandCenter/.coverage
           poetry run coverage html
+          poetry run coverage xml
 
       - name: Upload test coverage report summary
         uses: actions/upload-artifact@v4
@@ -45,22 +46,27 @@ jobs:
           name: test-coverage
           path: ./CommandCenter/htmlcov/
 
-      
-      
-  # black-format:
-  #   name: Black formatting
-  #   needs: setup-python
-  #   runs-on: ubuntu-latest
-  #   continue-on-error: true
-  #   steps:
-  #     - name: Check out repository
-  #       uses: actions/checkout@v4
+      - name: Get Cover 
+        uses: orgoro/coverage@v3.2
+        with:
+          coverageFile: ./coverage.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-  #     - name: Black formatting
-  #       uses: reviewdog/action-black@v3
-  #       with:
-  #         github_token: ${{ secrets.github_token }}
-  #         reporter: github-pr-check.
-  #         level: warning
-  #         verbose: true
+
+  black-format:
+    name: Black formatting
+    needs: setup-python
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Black formatting
+        uses: reviewdog/action-black@v3
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-check.
+          level: warning
+          verbose: true
       
