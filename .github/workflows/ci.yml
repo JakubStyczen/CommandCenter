@@ -37,8 +37,8 @@ jobs:
         working-directory: ./CommandCenter
         run: | 
           poetry run coverage report --fail-under=70 --data-file=./CommandCenter/.coverage
-          poetry run coverage html
-          poetry run coverage xml
+          poetry run coverage html --data-file=./CommandCenter/.coverage
+          poetry run coverage xml --data-file=./CommandCenter/.coverage
 
       - name: Upload test coverage report summary
         uses: actions/upload-artifact@v4
