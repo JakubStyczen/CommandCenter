@@ -38,7 +38,7 @@ jobs:
       - name: Generate html coverage report
         run: poetry run coverage html
         
-        - uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           name: test-coverage
           path: htmlcov/
