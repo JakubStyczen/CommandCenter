@@ -4,6 +4,9 @@ on:
     branches:
       - main
       - 'feature/**'
+  pull_request:
+      branches:
+      - main
 
 jobs:
   setup-python:
@@ -26,14 +29,22 @@ jobs:
       - name: Install packages
         run: poetry install
   
-  run-tests:
-    name: Run tests
-    needs: setup-python
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run django tests 
-        run: poetry run python3 CommandCenter/manage.py test
-  
+      - rame: Run tests
+        run: poetry run coverage run CommandCenter/manage.py test
+
+      - name: Coverage report view
+        run: poetry run coverage report
+      
+      - name: Generate html coverage report
+        run: poetry run coverage html
+        
+        - uses: actions/upload-artifact@v4
+        with:
+          name: test-coverage
+          path: htmlcov/
+
+      
+      
   # black-format:
   #   name: Black formatting
   #   needs: setup-python
