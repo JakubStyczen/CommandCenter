@@ -2,6 +2,7 @@ from django.test import SimpleTestCase, TestCase, tag
 from django.urls import reverse
 from pigeonInterrupts.models import PigeonInterrupt
 from django.utils.http import urlencode
+from datetime import datetime
 
 
 class TestPigeonInterruptsAppHomePage(SimpleTestCase):
@@ -21,7 +22,7 @@ class TestPigeonInterruptsAppHomePage(SimpleTestCase):
 
 class TestPigeonInterruptsAppDeletePage(TestCase):
     """
-    Numerate test cases to differ them sequence to help choose proper id of record in test case.
+    In case of using djongo numerate test cases to differ them sequence to help choose proper id of record in test case.
     Each test case has cls.pigeon_interrupt but with different id property, incremented.
 
     Also "databases = '__all__'" must be set to preapare db's for tests
@@ -31,7 +32,7 @@ class TestPigeonInterruptsAppDeletePage(TestCase):
 
     @classmethod
     def setUpTestData(cls) -> None:
-        PigeonInterrupt.objects.create()
+        PigeonInterrupt.objects.create(Time=datetime.now())
 
     def test_case_1_pigeon_interrupts_delete_page_uses_correct_templates(self) -> None:
         """Cheking if endpoint uses proper templates"""
@@ -44,23 +45,23 @@ class TestPigeonInterruptsAppDeletePage(TestCase):
             response, "pigeonInterrupts/pigeon_interrupt_delete.html"
         )
 
-    def test_case_2_pigeon_interrupts_delete_page_contains_welcome_message(
+    def test_case_2_pigeon_interrupts_delete_page_contains_delete_message(
         self,
     ) -> None:
-        """Checking if endpoint contains proper data"""
+        """Checking if endpoint contains proper data. In case using djongo replace id: 2"""
         response = self.client.get(
-            reverse("pigeonInterrupts:pigeon_interrupt_delete", kwargs={"id": 2})
+            reverse("pigeonInterrupts:pigeon_interrupt_delete", kwargs={"id": 1})
         )
         self.assertContains(
             response, "Are you sure you want to delete this product ?", status_code=200
         )
 
     def test_case_3_pigeon_interrupts_delete_interrupt_log(self) -> None:
-        """Deleting one record and checking if there is no record"""
+        """Deleting one record and checking if there is no record. In case using djongo replace id: 3"""
         response = self.client.get(reverse("pigeonInterrupts:pigeon_interrupt_list"))
         self.assertEqual(len(response.context["pigeons_interrupts"]), 1)
         self.client.post(
-            reverse("pigeonInterrupts:pigeon_interrupt_delete", kwargs={"id": 3})
+            reverse("pigeonInterrupts:pigeon_interrupt_delete", kwargs={"id": 1})
         )
         response = self.client.get(reverse("pigeonInterrupts:pigeon_interrupt_list"))
         self.assertEqual(len(response.context["pigeons_interrupts"]), 0)
@@ -70,12 +71,11 @@ class TestPigeonInterruptsAppListPage(TestCase):
     databases = "__all__"
 
     def setUp(self) -> None:
-        PigeonInterrupt.objects.create(CameraSensor=False)
-        PigeonInterrupt.objects.create(CameraSensor=True)
-        PigeonInterrupt.objects.create(CameraSensor=False)
-        PigeonInterrupt.objects.create(CameraSensor=True)
-        PigeonInterrupt.objects.create(CameraSensor=False)
-        PigeonInterrupt.objects.create(CameraSensor=True)
+        time = datetime.now()
+        for _ in range(6):
+            PigeonInterrupt.objects.create(
+                Time=time, CameraSensor=True, PIRSensor=False
+            )
 
     def test_pigeon_interrupts_list_page_uses_correct_templates(self) -> None:
         """Cheking if endpoint uses proper templates"""
@@ -124,10 +124,3 @@ class TestPigeonInterruptsAppListPage(TestCase):
             f"{reverse('pigeonInterrupts:pigeon_interrupt_list')}?{urlencode(query_kwargs)}"
         )
         self.assertEqual(len(response.context["pigeons_interrupts"]), 6)
-
-    # @tag('correct')
-    # def test_pigeon_interrupts_list_without_quantity_param(self) -> None:
-    #     """Check proper amount fo records display (2 availabe but and 2 on demand). Adding query parameters"""
-    #     query_kwargs = {'quantity': ''}
-    #     response = self.client.get(f"{reverse('pigeonInterrupts:pigeon_interrupt_list')}?{urlencode(query_kwargs)}")
-    #     self.assertEqual(len(response.context['pigeons_interrupts']), 2)
