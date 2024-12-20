@@ -29,6 +29,8 @@
                     <a href="{% url 'pigeonInterrupts:pigeon_interrupt_delete' interrupt_record.id %}" class="btn btn-danger" >Delete</a>
                 </td>
             </tr>
+            {% empty %}
+                <p>No logs recorded</p>
             {% endfor %}
         </tbody>
     </table>

@@ -1,0 +1,53 @@
+name: CI
+on: 
+  push:
+    branches:
+      - main
+      - 'feature/**'
+
+jobs:
+  setup-python:
+    name: Set up Python environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Set up python
+        id: setup-python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.3'
+          cache: 'poetry'
+
+      - name: Install packages
+        run: poetry install
+  
+  run-tests:
+    name: Run tests
+    needs: setup-python
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run django tests 
+        run: poetry run python3 CommandCenter/manage.py test
+  
+  # black-format:
+  #   name: Black formatting
+  #   needs: setup-python
+  #   runs-on: ubuntu-latest
+  #   continue-on-error: true
+  #   steps:
+  #     - name: Check out repository
+  #       uses: actions/checkout@v4
+
+  #     - name: Black formatting
+  #       uses: reviewdog/action-black@v3
+  #       with:
+  #         github_token: ${{ secrets.github_token }}
+  #         reporter: github-pr-check.
+  #         level: warning
+  #         verbose: true
+      

@@ -7,17 +7,24 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='PigeonInterrupt',
+            name="PigeonInterrupt",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('Time', models.DateTimeField()),
-                ('PIRSensor', models.BooleanField(default=False)),
-                ('CameraSensor', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("Time", models.DateTimeField()),
+                ("PIRSensor", models.BooleanField(default=False)),
+                ("CameraSensor", models.BooleanField(default=False)),
             ],
         ),
     ]
