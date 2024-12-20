@@ -32,12 +32,13 @@ jobs:
       - rame: Run tests
         run: poetry run coverage run CommandCenter/manage.py test
 
-      - name: Coverage report view
+      - name: Test coverage report view
         run: poetry run coverage report
       
-      - name: Generate html coverage report
+      - name: Generate html test coverage report
         run: poetry run coverage html
-        
+
+      - name: Upload test coverage report summary
         uses: actions/upload-artifact@v4
         with:
           name: test-coverage
