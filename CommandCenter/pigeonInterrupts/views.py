@@ -29,7 +29,7 @@ def pigeon_interrupt_delete_view(request, id):
     pigeon_interrupt = PigeonInterrupt.objects.get(id=id)
     if request.method == "POST":
         pigeon_interrupt.delete()
-        return redirect("pigeonInterrupts/pigeon_interrupt_list.html")
+        return redirect("pigeonInterrupts:pigeon_interrupt_list")
     return render(
         request,
         "pigeonInterrupts/pigeon_interrupt_delete.html",

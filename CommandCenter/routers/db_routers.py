@@ -13,6 +13,7 @@ class AuthRouter:
         "staticfiles",
         "mainApp",
         "TestApp",
+        "weatherApp",
     }
 
     def db_for_read(self, model, **hints):

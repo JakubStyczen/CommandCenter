@@ -24,5 +24,6 @@ urlpatterns = [
         "pigeon_interrupts/",
         include("pigeonInterrupts.urls", namespace="pigeon_interrupts"),
     ),
+    path("weather/", include("weatherApp.urls", namespace="weather_conditions")),
     path("test/", include("TestApp.urls", namespace="test")),
 ]

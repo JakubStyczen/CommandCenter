@@ -1,4 +1,4 @@
-from django.test import SimpleTestCase, TestCase, tag
+from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 from pigeonInterrupts.models import PigeonInterrupt
 from django.utils.http import urlencode
@@ -53,17 +53,29 @@ class TestPigeonInterruptsAppDeletePage(TestCase):
             reverse("pigeonInterrupts:pigeon_interrupt_delete", kwargs={"id": 1})
         )
         self.assertContains(
-            response, "Are you sure you want to delete this product ?", status_code=200
+            response,
+            "Are you sure you want to delete this pigeon interrupt ?",
+            status_code=200,
         )
 
     def test_case_3_pigeon_interrupts_delete_interrupt_log(self) -> None:
+        pigeon_interrupts_list_reverse = reverse(
+            "pigeonInterrupts:pigeon_interrupt_list"
+        )
         """Deleting one record and checking if there is no record. In case using djongo replace id: 3"""
-        response = self.client.get(reverse("pigeonInterrupts:pigeon_interrupt_list"))
+        response = self.client.get(pigeon_interrupts_list_reverse)
         self.assertEqual(len(response.context["pigeons_interrupts"]), 1)
-        self.client.post(
+        response = self.client.post(
             reverse("pigeonInterrupts:pigeon_interrupt_delete", kwargs={"id": 1})
         )
-        response = self.client.get(reverse("pigeonInterrupts:pigeon_interrupt_list"))
+        self.assertRedirects(
+            response,
+            pigeon_interrupts_list_reverse,
+            status_code=302,
+            target_status_code=200,
+            fetch_redirect_response=True,
+        )
+        response = self.client.get(pigeon_interrupts_list_reverse)
         self.assertEqual(len(response.context["pigeons_interrupts"]), 0)
 
 
@@ -93,9 +105,7 @@ class TestPigeonInterruptsAppListPage(TestCase):
 
     def test_pigeon_interrupts_list_page_check_content(self) -> None:
         """Checking if endpoint contains proper data"""
-        response = self.client.get(
-            f"{reverse('pigeonInterrupts:pigeon_interrupt_list')}?"
-        )
+        response = self.client.get(reverse("pigeonInterrupts:pigeon_interrupt_list"))
         self.assertContains(response, "True")
         self.assertContains(response, "False")
         self.assertNotContains(response, "No logs recorded")
@@ -112,7 +122,7 @@ class TestPigeonInterruptsAppListPage(TestCase):
         response = self.client.get(reverse("pigeonInterrupts:pigeon_interrupt_list"))
         self.assertEqual(len(response.context["pigeons_interrupts"]), 5)
 
-    def test_pigeon_interrupts_list_default_interrupt_amount(self) -> None:
+    def test_pigeon_interrupts_list_custom_interrupt_amount(self) -> None:
         """Check proper amount fo records display (2 availabe but only 1 on demand). Adding query parameters"""
         query_kwargs = {"quantity": 1}
         response = self.client.get(

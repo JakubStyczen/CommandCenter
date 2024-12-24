@@ -257,6 +257,20 @@ files = [
 django = ">=3.2"
 
 [[package]]
+name = "django-cron"
+version = "0.6.0"
+description = "Running python crons in a Django project"
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-cron-0.6.0.tar.gz", hash = "sha256:dc3c0d3433a2e4e7012f77f6d8415ad90367ba068649db2674325bc36f935841"},
+    {file = "django_cron-0.6.0-py3-none-any.whl", hash = "sha256:016203554748512b7f19d7363b4fde8741c6ff63fe8a15051f3031f4a0506a41"},
+]
+
+[package.dependencies]
+Django = ">=3.2"
+
+[[package]]
 name = "djongo"
 version = "1.3.6"
 description = "Driver for allowing Django to use MongoDB as the database backend."
@@ -510,6 +524,20 @@ tls = ["ipaddress"]
 zstd = ["zstandard"]
 
 [[package]]
+name = "python-dotenv"
+version = "1.0.1"
+description = "Read key-value pairs from a .env file and set them as environment variables"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "python-dotenv-1.0.1.tar.gz", hash = "sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca"},
+    {file = "python_dotenv-1.0.1-py3-none-any.whl", hash = "sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a"},
+]
+
+[package.extras]
+cli = ["click (>=5.0)"]
+
+[[package]]
 name = "pytz"
 version = "2024.2"
 description = "World timezone definitions, modern and historical"
@@ -657,4 +685,4 @@ tests = ["aiofiles", "coverage[toml] (>=5.0.2)", "pytest (>5)", "pytest-asyncio"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.13"
-content-hash = "b858d21fdcd2222c0bff0ef73a9121dd9bd55658032957ff111f55acf1c7901c"
+content-hash = "19a6b33a9df40c8f51ad3c618c02ebc62aad56d848457664c7f7624c431bbd08"

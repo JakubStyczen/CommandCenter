@@ -8,7 +8,7 @@
     <form  method="GET" class="text-center" action="{% url 'pigeonInterrupts:pigeon_interrupt_list' %}">
         <label for="quantity">Logs amount :</label>
         <input type="number" id="quantity" name="quantity" min="0" max="30" placeholder="Pass number of logs">
-        <button type="submit" class="btn">Apply</button>
+        <button type="submit" class="btn btn-warning">Apply</button>
       </form>   
     <table class="table table-bordered table-striped ">
         <thead class="thead-dark">
@@ -26,7 +26,7 @@
                 <td>{{ interrupt_record.PIRSensor }} </td>
                 <td>{{ interrupt_record.CameraSensor }} </td>
                 <td>
-                    <a href="{% url 'pigeonInterrupts:pigeon_interrupt_delete' interrupt_record.id %}" class="btn btn-danger" >Delete</a>
+                    <a href="{% url 'pigeonInterrupts:pigeon_interrupt_delete' interrupt_record.id %}" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
             {% empty %}

@@ -1,0 +1,13 @@
+<!-- Extend the base layout from the weatherApp/layout.html -->
+{% extends "weatherApp/layout.html" %}
+
+{% block title %} Weather conditions creation {% endblock %}
+
+{% block content %}
+<h1 class="text-center">Weather conditions</h1>
+<form method="POST" class="jumbotron">
+    {% csrf_token %}
+    {{form}}
+    <button class="btn btn-success btn-block" type="submit">Save record</button>
+</form>
+{% endblock %}

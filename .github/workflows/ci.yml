@@ -46,7 +46,7 @@ jobs:
           name: test-coverage
           path: ./htmlcov/
 
-      - name: Get Cover 
+      - name: Publish coverage results for PR
         uses: orgoro/coverage@v3.2
         with:
           coverageFile: ./coverage.xml

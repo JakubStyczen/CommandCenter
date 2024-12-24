@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_cron",
     "mainApp",
     "TestApp",
+    "weatherApp",
     "pigeonInterrupts",
     "crispy_forms",
     "crispy_bootstrap5",
@@ -146,4 +148,8 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 DATABASE_ROUTERS = [
     "routers.db_routers.AuthRouter",
     "routers.db_routers.PigeonDeterrentRouter",
+]
+
+CRON_CLASSES = [
+    "weatherApp.cron.CleanOldRecordsJob",
 ]

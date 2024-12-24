@@ -1,11 +1,12 @@
 from django.core.exceptions import ValidationError
-from django.db import IntegrityError
+
+# from django.db import IntegrityError
 from django.test import TestCase
 from pigeonInterrupts.models import PigeonInterrupt
 from datetime import datetime
 
 
-class PigeonInterruptModelTest(TestCase):
+class TestPigeonInterruptModel(TestCase):
 
     @classmethod
     def setUpTestData(cls) -> None:
@@ -20,7 +21,7 @@ class PigeonInterruptModelTest(TestCase):
         self.assertEqual(True, self.pigeon_interrupt.PIRSensor)
         self.assertEqual(True, self.pigeon_interrupt.CameraSensor)
 
-    def test_defult_model__default_values_creation(self) -> None:
+    def test_defult_model_default_values_creation(self) -> None:
         self.assertEqual(None, self.pigeon_interrupt_default.Time)
         self.assertEqual(False, self.pigeon_interrupt_default.PIRSensor)
         self.assertEqual(False, self.pigeon_interrupt_default.CameraSensor)

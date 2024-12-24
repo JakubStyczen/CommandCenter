@@ -1,0 +1,13 @@
+<!-- Extend the base layout from the weatherApp/layout.html -->
+{% extends "weatherApp/layout.html" %}
+
+{% block title %} Delete weather condition {% endblock title %}
+
+{% block subcontent %}
+  <h1 class="text-center">Are you sure you want to delete this record ? </h1>
+  <form  method="post" class="text-center">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes</button>
+    <a href="{% url 'weatherApp:weather_conditions_list' %}" class="btn btn-secondary">Cancel</a>
+  </form>    
+{% endblock %}

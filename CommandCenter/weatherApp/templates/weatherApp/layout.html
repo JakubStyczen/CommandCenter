@@ -1,18 +1,21 @@
 <!-- Extend the base layout from the mainApp:layout.html -->
 {% extends "mainApp/layout.html" %}
 {% comment %} Used parts of tempaltes from NetNinja's django course {% endcomment %}
-{% block title %} Pigeon Interrupts logs {% endblock %}
+{% block title %} Weather conditions logs {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="{% url 'pigeonInterrupts:home' %}">Pigeon Deterrent App</a>
+<nav class="navbar navbar-expand-lg navbar-dark"> 
+    <a class="navbar-brand" href="{% url 'pigeonInterrupts:home' %}">Weather conditions app</a> 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+    <div class="collapse navbar-collapse" id="navbarNav">  
+        <ul class="navbar-nav">  
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'pigeonInterrupts:pigeon_interrupt_list' %}">Show recorded pigeon interrupts</a>  <!-- Link to the product listing page -->
+                <a class="nav-link" href="{% url 'weatherApp:weather_conditions_list' %}">Show recorded weather conditions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'weatherApp:weather_conditions_create' %}">Add recorded weather condition</a>
             </li>
         </ul>
     </div>
