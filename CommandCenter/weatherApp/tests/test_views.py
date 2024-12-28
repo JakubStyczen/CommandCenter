@@ -1,4 +1,4 @@
-from django.test import SimpleTestCase, TestCase, tag
+from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 from weatherApp.models import WeatherConditions
 from django.utils.http import urlencode
@@ -123,3 +123,88 @@ class TestWeatherConditionsAppListPage(TestCase):
             f"{reverse('weatherApp:weather_conditions_list')}?{urlencode(query_kwargs)}"
         )
         self.assertEqual(len(response.context["weather_conditions"]), 6)
+
+
+class TestWeatherConditionsAppCreatePage(TestCase):
+    databases = "__all__"
+
+    def test_weather_app_create_page_uses_correct_templates(self) -> None:
+        """Cheking if endpoint uses proper templates"""
+        response = self.client.get(reverse("weatherApp:weather_conditions_create"))
+        self.assertTemplateUsed(response, "mainApp/layout.html")
+        self.assertTemplateUsed(response, "weatherApp/layout.html")
+        self.assertTemplateUsed(response, "weatherApp/weather_conditions_create.html")
+
+    def test_weather_app_create_page_contains_save_record_message(
+        self,
+    ) -> None:
+        """Checking if endpoint contains proper message"""
+        response = self.client.get(reverse("weatherApp:weather_conditions_create"))
+        self.assertContains(response, "Save record", status_code=200)
+
+    def test_weather_app_create_page_correct_submit(
+        self,
+    ) -> None:
+        form = {
+            "temperature": "30",
+            "additional_info": "Test info",
+        }
+        response = self.client.post(
+            reverse("weatherApp:weather_conditions_create"), data=form
+        )
+        self.assertRedirects(
+            response,
+            reverse("weatherApp:weather_conditions_list"),
+            status_code=302,
+            target_status_code=200,
+            fetch_redirect_response=True,
+        )
+        response = self.client.get(reverse("weatherApp:weather_conditions_list"))
+        self.assertEqual(len(response.context["weather_conditions"]), 1)
+
+
+class TestWeatherConditionsAppUpdatePage(TestCase):
+    databases = "__all__"
+
+    @classmethod
+    def setUpTestData(cls) -> None:
+        WeatherConditions.objects.create(temperature=0)
+
+    def test_weather_app_update_page_uses_correct_templates(self) -> None:
+        """Cheking if endpoint uses proper templates"""
+        response = self.client.get(
+            reverse("weatherApp:weather_conditions_update", kwargs={"id": 1})
+        )
+        self.assertTemplateUsed(response, "mainApp/layout.html")
+        self.assertTemplateUsed(response, "weatherApp/layout.html")
+        self.assertTemplateUsed(response, "weatherApp/weather_conditions_create.html")
+
+    def test_weather_app_update_page_contains_save_record_message(
+        self,
+    ) -> None:
+        """Checking if endpoint contains proper message"""
+        response = self.client.get(
+            reverse("weatherApp:weather_conditions_update", kwargs={"id": 1})
+        )
+        self.assertContains(response, "Save record", status_code=200)
+
+    def test_weather_app_update_page_correct_submit(
+        self,
+    ) -> None:
+        form = {
+            "temperature": "30",
+            "additional_info": "Test info",
+        }
+        response = self.client.post(
+            reverse("weatherApp:weather_conditions_update", kwargs={"id": 1}), data=form
+        )
+        self.assertRedirects(
+            response,
+            reverse("weatherApp:weather_conditions_list"),
+            status_code=302,
+            target_status_code=200,
+            fetch_redirect_response=True,
+        )
+        response = self.client.get(reverse("weatherApp:weather_conditions_list"))
+        self.assertEqual(len(response.context["weather_conditions"]), 1)
+        self.assertContains(response, "Test info")

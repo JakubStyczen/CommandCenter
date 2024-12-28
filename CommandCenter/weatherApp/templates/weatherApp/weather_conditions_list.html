@@ -24,7 +24,7 @@
             {% for weather_condition in weather_conditions %}
             <tr>
                 <td>{{ weather_condition.time }} </td>
-                <td>{{ weather_condition.temperature }} </td>
+                <td>{{ weather_condition.temperature }} &deg;C</td>
                 <td>{{ weather_condition.temperature_emoji.value }} </td>
                 <td>{{ weather_condition.additional_info }} </td>
                 <td>

@@ -20,6 +20,8 @@ coverage = {extras = ["toml"], version = "^7.6.9"}
 black = "^24.10.0"
 django-cron = "^0.6.0"
 python-dotenv = "^1.0.1"
+environs = "^11.2.1"
+schedule = "^1.2.2"
 
 
 [build-system]
