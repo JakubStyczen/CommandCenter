@@ -18,6 +18,7 @@ class W1TemperatureSensor:
     def get_temperature(self) -> float:
         temperature = self.temperature_sensor.get_temperature()
         logger.debug(f"Current temperature: {temperature}\N{DEGREE SIGN}C")
+        return temperature
 
     def get_sensor_info(self) -> str:
         return "Captured with 1 wire dsxxx sesnor"

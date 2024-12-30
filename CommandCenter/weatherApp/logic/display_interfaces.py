@@ -23,3 +23,10 @@ class CommandLineWeateherDisplayInterface:
 class LCDWeateherDisplayInterface:
     def display(self, data: WeatherConditions) -> None:
         pass
+
+
+availavle_display_interfaces = {
+    "cmd": CommandLineWeateherDisplayInterface,
+    "lcd": LCDWeateherDisplayInterface,
+    "web": WebAppWeateherDisplayInterface,
+}
