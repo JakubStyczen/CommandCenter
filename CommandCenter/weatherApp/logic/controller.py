@@ -10,6 +10,7 @@ from weatherApp.logic.display_interfaces import (
     WebAppWeateherDisplayInterface,
     availavle_display_interfaces,
 )
+from CommandCenter.config import Config
 
 logger = logging.getLogger(__name__)
 
@@ -29,9 +30,7 @@ class WeatherConditionsController:
     ) -> None:
         self.temperature_sensor = temperature_sensor
         self.display_interfaces_list = display_interfaces_list
-        print(display_interfaces_list)
         self.record_data_period = record_data_period
-        pass
 
     def start_logic(self, is_stopped) -> None:
         schedule.every(self.record_data_period).seconds.do(self.display_data)
@@ -59,28 +58,35 @@ class WeatherConditionsController:
 
 
 class WeatherConditionsMainLogic(threading.Thread):
-    def __init__(self, display_interfaces_list_str: list[str] | None) -> None:
+    def __init__(
+        self, display_interfaces_list_str: list[str] | None, config: Config
+    ) -> None:
         super().__init__(daemon=True)
+        self.config = config
         self._stop_event = threading.Event()
         self.display_interfaces_list: list[DisplayInterface] = (
             self.prepare_display_interfaces(display_interfaces_list_str)
         )
         self.controller: Controller = WeatherConditionsController(
-            W1TemperatureSensor(), self.display_interfaces_list, 10
+            W1TemperatureSensor(),
+            self.display_interfaces_list,
+            self.config.record_data_period,
         )
 
     def prepare_display_interfaces(
         self, display_interfaces_list_str: list[str] | None
     ) -> list[DisplayInterface]:
         default_display_interfaces_list: list[DisplayInterface] = [
-            WebAppWeateherDisplayInterface()
+            WebAppWeateherDisplayInterface(self.config)
         ]
         if display_interfaces_list_str is None:
             return default_display_interfaces_list
         for interface_name in set(display_interfaces_list_str):
-            display_interface = availavle_display_interfaces.get(interface_name, None)
+            display_interface = availavle_display_interfaces.get(
+                interface_name.lower(), None
+            )
             if display_interface is not None:
-                default_display_interfaces_list.append(display_interface())
+                default_display_interfaces_list.append(display_interface(self.config))
         return default_display_interfaces_list
 
     def run(self):

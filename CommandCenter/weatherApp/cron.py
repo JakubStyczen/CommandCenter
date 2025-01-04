@@ -1,9 +1,10 @@
 from django_cron import CronJobBase, Schedule
 from .models import WeatherConditions
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
+# from dotenv import load_dotenv
+
+# load_dotenv()
 
 
 class CleanOldRecordsJob(CronJobBase):

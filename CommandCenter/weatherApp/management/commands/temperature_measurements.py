@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from weatherApp.logic.controller import WeatherConditionsMainLogic
+from CommandCenter.config import Config
 import time
 
 
@@ -11,6 +12,8 @@ class Command(BaseCommand):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.measurement_thread: threading.Thread | None = None
+        self.config = Config()
+        self.config.read_env_varaibles()
 
     help = "Command responsible for starting and stopping temperature measurement for weatherApp and properly display measurements"
     _is_measurement_running = False
@@ -43,7 +46,9 @@ class Command(BaseCommand):
         #         )
         #     return
         self._is_measurement_running = True
-        self.measurement_thread = WeatherConditionsMainLogic(kwargs["displays"])
+        self.measurement_thread = WeatherConditionsMainLogic(
+            kwargs["displays"], self.config
+        )
         self.measurement_thread.start()
         self.stdout.write(self.style.SUCCESS("Succesfully started measurement!"))
         try:
