@@ -32,9 +32,6 @@ jobs:
       - name: Set up proper env variables
         run: echo "W1THERMSENSOR_NO_KERNEL_MODULE=1" >> $GITHUB_ENV
 
-      - name: Test
-        run: echo $W1THERMSENSOR_NO_KERNEL_MODULE
-
       - name: Run tests
         working-directory: ./CommandCenter
         run: poetry run coverage run manage.py test --settings=CommandCenter.test_settings --exclude-tag=only_local
