@@ -1,0 +1,15 @@
+<!-- Extend the base layout from the weatherApp/layout.html -->
+{% extends "weatherApp/layout.html" %}
+
+{% block title %} Weather conditions {% endblock %}
+
+{% block subcontent %}
+  <div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to the weather conditions logs</h1>
+    <hr class="my-4">
+    <p>
+        Use the navigation bar to add, view, update or delete weather conditions logs.
+    </p>
+    <a href="{% url 'weatherApp:weather_conditions_list' %}" class="btn btn-primary btn-lg" role="button">View records</a>
+  </div>
+{% endblock %}

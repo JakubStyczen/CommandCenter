@@ -16,8 +16,24 @@ pre-commit = "^4.0.1"
 w1thermsensor = "^2.3.0"
 spidev = "^3.6"
 django-clearcache = "^1.2.1"
-
+coverage = {extras = ["toml"], version = "^7.6.9"}
+black = "^24.10.0"
+django-cron = "^0.6.0"
+python-dotenv = "^1.0.1"
+environs = "^11.2.1"
+schedule = "^1.2.2"
+numpy="1.25"
+pillow = "^11.1.0"
+gpiozero = "^2.0.1"
+lgpio = "^0.2.2.0"
+pigpio = "^1.78"
+rpi-gpio = "^0.7.1"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.report]
+omit = [
+    "CommandCenter/**/tests/*",
+]

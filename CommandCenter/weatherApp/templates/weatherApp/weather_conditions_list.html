@@ -1,0 +1,40 @@
+<!-- Extend the base layout from the pigeonInterrupts/layout.html -->
+{% extends "weatherApp/layout.html" %}
+
+{% block title %} Weather conditions logs {% endblock %}
+
+{% block subcontent %}
+    <h1 class="text-center">Weather conditions logs</h1>
+    <form  method="GET" class="text-center" action="{% url 'weatherApp:weather_conditions_list' %}">
+        <label for="quantity">Logs amount :</label>
+        <input type="number" id="quantity" name="quantity" min="0" max="30" placeholder="Pass number of logs">
+        <button type="submit" class="btn btn-warning">Apply</button>
+      </form>   
+    <table class="table table-bordered table-striped ">
+        <thead class="thead-dark">
+            <tr>
+                <th>Time</th>
+                <th>Temperature</th>
+                <th>Status</th>
+                <th>Info</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for weather_condition in weather_conditions %}
+            <tr>
+                <td>{{ weather_condition.time }} </td>
+                <td>{{ weather_condition.temperature }} &deg;C</td>
+                <td>{{ weather_condition.temperature_emoji.value }} </td>
+                <td>{{ weather_condition.additional_info }} </td>
+                <td>
+                    <a href="{% url 'weatherApp:weather_conditions_update' weather_condition.condition_id %}" class="btn btn-warning" >Update</a>
+                    <a href="{% url 'weatherApp:weather_conditions_delete' weather_condition.condition_id %}" class="btn btn-danger" >Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+                <p>No logs recorded</p>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

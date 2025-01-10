@@ -1,16 +1,16 @@
 <!-- Extend the base layout from the mainApp:layout.html -->
 {% extends "mainApp/layout.html" %}
-
+{% comment %} Used parts of tempaltes from NetNinja's django course {% endcomment %}
 {% block title %} Pigeon Interrupts logs {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-expand-lg navbar-dark">  <!-- Create a fixed-top navbar with Bootstrap classes -->
-    <a class="navbar-brand" href="{% url 'pigeonInterrupts:home' %}">Pigeon Deterrent App</a>  <!-- Link the brand name to the home page using Django's URL tag -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="{% url 'pigeonInterrupts:home' %}">Pigeon Deterrent App</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>  <!-- Button to toggle the navbar on smaller screens -->
+        <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">  <!-- Collapsible navbar content -->
-        <ul class="navbar-nav">  <!-- Navbar items container -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'pigeonInterrupts:pigeon_interrupt_list' %}">Show recorded pigeon interrupts</a>  <!-- Link to the product listing page -->
             </li>
