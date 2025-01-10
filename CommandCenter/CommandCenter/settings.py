@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_cron",
     "mainApp",
-    "TestApp",
     "weatherApp",
     "pigeonInterrupts",
     "crispy_forms",

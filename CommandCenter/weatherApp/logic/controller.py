@@ -59,7 +59,10 @@ class WeatherConditionsController:
 
 class WeatherConditionsMainLogic(threading.Thread):
     def __init__(
-        self, display_interfaces_list_str: list[str] | None, config: Config
+        self,
+        display_interfaces_list_str: list[str] | None,
+        config: Config,
+        temperature_sensor: TemperatureSensor = W1TemperatureSensor(),
     ) -> None:
         super().__init__(daemon=True)
         self.config = config
@@ -67,8 +70,9 @@ class WeatherConditionsMainLogic(threading.Thread):
         self.display_interfaces_list: list[DisplayInterface] = (
             self.prepare_display_interfaces(display_interfaces_list_str)
         )
+        self.temperature_sensor = temperature_sensor
         self.controller: Controller = WeatherConditionsController(
-            W1TemperatureSensor(),
+            self.temperature_sensor,
             self.display_interfaces_list,
             self.config.record_data_period,
         )
