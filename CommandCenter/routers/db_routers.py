@@ -12,7 +12,6 @@ class AuthRouter:
         "messages",
         "staticfiles",
         "mainApp",
-        "TestApp",
         "weatherApp",
     }
 

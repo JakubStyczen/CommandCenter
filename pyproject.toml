@@ -36,5 +36,4 @@ build-backend = "poetry.core.masonry.api"
 [tool.coverage.report]
 omit = [
     "CommandCenter/**/tests/*",
-    "CommandCenter/TestApp/*",
 ]

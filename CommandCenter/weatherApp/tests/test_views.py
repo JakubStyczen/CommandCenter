@@ -1,5 +1,4 @@
 from django.test import SimpleTestCase, TestCase
-from django.core.exceptions import ValidationError
 from django.urls import reverse
 from weatherApp.models import WeatherConditions
 from django.utils.http import urlencode
