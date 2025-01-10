@@ -23,7 +23,8 @@ jobs:
         id: setup-python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11.3'
+          python-version: '3.11'
+          cache: 'poetry'
 
       - name: Install packages
         run: poetry install
