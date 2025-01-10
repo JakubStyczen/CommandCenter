@@ -17,6 +17,7 @@ from weatherApp.logic.controller import (
 from CommandCenter.config import Config
 
 
+@tag("only_local")
 class TestWeatherConditionsController(TestCase):
 
     @classmethod

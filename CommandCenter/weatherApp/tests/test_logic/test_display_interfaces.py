@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, tag
 from contextlib import redirect_stdout
 from unittest.mock import Mock
 from io import StringIO
@@ -7,11 +7,11 @@ from weatherApp.models import WeatherConditions
 from weatherApp.logic.display_interfaces import (
     WebAppWeateherDisplayInterface,
     CommandLineWeateherDisplayInterface,
-    LCDWeateherDisplayInterface,
 )
 from CommandCenter.config import Config
 
 
+@tag("only_local")
 class TestWebAppWeateherDisplayInterface(TestCase):
     databases = "__all__"
 
@@ -42,6 +42,7 @@ class TestWebAppWeateherDisplayInterface(TestCase):
         self.assertIn("Invalid data while saving to database", out.getvalue())
 
 
+@tag("only_local")
 class TestCommandLineWeateherDisplayInterface(TestCase):
 
     @classmethod
