@@ -34,10 +34,9 @@ jobs:
 
       - name: Run tests
         working-directory: ./CommandCenter
-        run: poetry run coverage run manage.py test --settings=CommandCenter.test_settings --exclude-tag=only_local
+        run: ls && poetry run coverage run manage.py test --settings=CommandCenter.test_settings --exclude-tag=only_local
 
       - name: Test coverage report view and generate html test coverage report
-        working-directory:
         run: | 
           poetry run coverage report --fail-under=70 --data-file=./CommandCenter/.coverage
           poetry run coverage html --data-file=./CommandCenter/.coverage
